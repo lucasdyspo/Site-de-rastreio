@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Rastreamento de pedidos - Digite o código de rastreio para conferir o status.">
+  <meta name="author" content="Seu Nome ou Empresa">
+  <meta name="keywords" content="rastreamento, pedidos, status de entrega, correios">
+  <title>Rastreamento de Pedidos</title>
+  <link rel="stylesheet" href="jailson.css"> <!-- Substitua por seu arquivo CSS -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Favicon opcional -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Favicon opcional -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script defer src="jailson.js"></script> <!-- Substitua pelo seu arquivo JS -->
+</head>
+
+  <script>
+    //Predefinições
+const corBotao = "#ff6600";
+const corTextoBotao = "#fff";
+const fontSize = "0.8rem";
+const fontSizeContent = "0.75rem";
+const fontFamily = "Verdana, Geneva, Tahoma, sans-serif";
+const title = "Preencha o código de rastreio abaixo para conferir o status do pedido.";
+    
+
+
+
+  </script>
+
+<body>
+  <div id="tabs-rastreamento">
+  <div id="ver-rastro-unico" style="display: block;">
+    <div>
+      <h4 id="code-rastreio"></h4>
+      <ul id="tipo-postal" class="cabecalho-rastro"></ul>
+    </div>
+    <ul id="ship" class="ship-steps"></ul>
+  </div>
+  <button onclick="hidePage()" id="btnVoltar" style="display:none;">Rastrear novo objeto</button>
+</div>
+<form id="form" onsubmit="OnSubmit()">
+<div class="text text-title">Preencha o código de rastreio abaixo para conferir o status do pedido."</div>
+  <div class="custom-search">
+    <input id="rastreio" required oninput="this.value = this.value.toUpperCase()" class="custom-search-input" type="text" title="Insira o código de rastreio corretamente" placeholder="Digite o c&oacute;digo de rastreio" />
+    <button id="btn-rastreio" class="custom-search-botton">Buscar</button>
+  </div>
+  <span id="error-rastreio" style="color: red;margin:8px 0 15px; display: block; font-weight: bold;"></span>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="rastreio-center">
+<div id="content-rastreio"></div>
+<div id="loader" class="loader" style="display: none;"></div>
+</div>
+<script>
+//Predefinições
+// const corBotao = "#ff6600";
+// const corTextoBotao = "#fff";
+// const fontSize = "0.8rem";
+// const fontSizeContent = "0.75rem";
+// const fontFamily = "Verdana, Geneva, Tahoma, sans-serif";
+// const title = "Preencha o código de rastreio abaixo para conferir o status do pedido.";
+
+
+/*
+    a: EXIBIR INFORMAÇÕES INTERNACIONAIS
+    b: CONSULTAR O RASTREIO INTERNACIONAL
+
+    OBS.: Por favor, remova esse comentário!
+*/
+const a = true;
+const b = false
+
+var html = `
+<div id="tabs-rastreamento">
+  <div id="ver-rastro-unico" style="display: block;">
+    <div>
+      <h4 id="code-rastreio"></h4>
+      <ul id="tipo-postal" class="cabecalho-rastro"></ul>
+    </div>
+    <ul id="ship" class="ship-steps"></ul>
+  </div>
+  <button onclick="hidePage()" id="btnVoltar" style="display:none;">Rastrear novo objeto</button>
+</div>
+<form id="form" onsubmit="OnSubmit()">
+<div class="text text-title">${title}</div>
+  <div class="custom-search">
+    <input id="rastreio" required oninput="this.value = this.value.toUpperCase()" class="custom-search-input" type="text" title="Insira o código de rastreio corretamente" placeholder="Digite o c&oacute;digo de rastreio" />
+    <button id="btn-rastreio" class="custom-search-botton">Buscar</button>
+  </div>
+  <span id="error-rastreio" style="color: red;margin:8px 0 15px; display: block; font-weight: bold;"></span>
+</form>
+
+`;
+document.getElementById("content-rastreio").innerHTML = html;
+
+//Code CSS
+
+
+
+
+//Entrar na URL com o rastreio
+var url_string = window.location.href;
+var url = new URL(url_string);
+var codeRastreioUrl = url.searchParams.get("id");
+if (codeRastreioUrl != null) {
+  codeRastreioUrl = codeRastreioUrl.toUpperCase();
+  getRastreamento(codeRastreioUrl);
+}
+else {
+  codeRastreioUrl = "";
+}
+
+function buildCabecalho(categoria, dtPrevista) {
+  var html = "";
+  html += `            <div class="arrow-dashed">`;
+  html += `              <div class="circle">`;
+  if(categoria == "Xpress"){
+    html += `                <img class="circle-img" src="https://cdn-icons-png.flaticon.com/512/726/726455.png" width="35px" height="35px" />`;
+  }else{
+    html += `                <img class="circle-img" src="https://rastreamento.correios.com.br/static/rastreamento-internet/imgs/correios-sf.png" width="35px" height="35px" />`;
+  }
+  html += `              </div>`;
+  html += `            </div>`;
+  html += `            <div class="cabecalho-content">`;
+  html += `              <p class="text text-content">${categoria}</p>`;
+  html += `                <p class="text text-content">Data prevista: ${dtPrevista}</p>`;
+  html += `            </div>`;
+  return html;
+}
+
+function buildItem(seta, img, status, local, data) {
+    var html = "";
+    html += `<li class="step">`;
+    html += `              <div class="${seta}">`;
+    html += `                <div class="circle">`;
+    html += `                  <img class="circle-img" src="https://rastreamento.correios.com.br/static/rastreamento-internet/imgs/${img}">`;
+    html += `                </div>`;
+    html += `              </div>`;
+    html += `              <div class="step-content">`;
+    html += `                <p class="text text-head">${status}</p>`;
+    local.forEach(function (linha) {
+      if (typeof linha === 'object' && linha !== null)
+        html += `                <p class="text text-head">${linha.detalhe}</p>`;
+      else
+        html += `                <p class="text text-content">${linha}</p>`;
+    });
+    html += `                <p class="text text-content">${data}</p>`;
+    html += `              </div>`;
+    html += `</li>`;
+    return html;
+  }
+
+// função para tratar o sucesso
+function success() {
+  try {
+    var dataJSON = JSON.parse(this.responseText).data;
+    if (!dataJSON.hasOwnProperty("mensagem")) {
+      hideLoader();
+      document.getElementById("rastreio").value = "";
+      document.getElementById("code-rastreio").innerHTML = dataJSON.codigo;
+      document.getElementById("tipo-postal").innerHTML = buildCabecalho(dataJSON.tipo, dataJSON.dtPrevista);
+      dataJSON.eventos.forEach(function (item, index) {
+        document.getElementById("ship").innerHTML += buildItem(
+          item.seta,
+          item.imagem,
+          item.descricao,
+          item.local,
+          item.data
+        );
+      });
+    } else {
+      document.getElementById("error-rastreio").innerHTML = dataJSON.mensagem;
+      hidePage();
+    }
+  } catch (err) {
+    error(err);
+  }
+}
+
+// função para tratar o erro
+function error(err) {
+  hidePage();
+  document.getElementById("error-rastreio").innerHTML = "Erro de solicitação, tente novamente!";
+  console.log("Erro de solicitação", err); //os detalhes do erro estarão no objeto "err"
+}
+
+function OnSubmit() {
+  event.preventDefault();
+
+  document.getElementById("tipo-postal").innerHTML = "";
+  document.getElementById("ship").innerHTML = "";
+  document.getElementById("code-rastreio").innerHTML = "";
+  const codRastreio = document.querySelector("#rastreio").value;
+  getRastreamento(codRastreio);
+}
+
+function getRastreamento(codRastreio) {
+    if (validate(codRastreio)) {
+      document.getElementById("error-rastreio").innerHTML = "";
+      try {
+        showLoader();
+        var xhr = new XMLHttpRequest(); //invocar uma nova instância de XMLHttpRequest
+        xhr.onload = success; // chamar a função success se a solicitação for um sucesso
+        xhr.onerror = error; // chamar a função error se a solicitação der errado
+        xhr.open("GET", `https://rastreio1.fly.dev/rastreioj?codigo=${codRastreio}&a=${a}&b=${b}`); // abrir uma solicitação
+        xhr.send(); // enviar a solicitação ao servidor.
+      } catch (err) {
+        console.error(`Error: ${err.value}`);
+      }
+    } else {
+      document.getElementById("rastreio").value = "";
+      document.getElementById("error-rastreio").innerHTML =
+        "Digite o código de rastreio corretamente!";
+    }
+  }
+  
+  function validate(codRastreio) {
+    var codRastreioRGEX = /^[A-Za-z]{2}[0-9]{9}[A-Za-z]{2}$|^[A-Za-z]{2}[0-9]{14}$|^BR/;
+    return codRastreioRGEX.test(codRastreio);
+  }
+
+function showLoader() {
+  document.getElementById("error-rastreio").innerHTML ="";
+  document.getElementById("loader").style.display = "block";
+  document.getElementById("form").style.display = "none";
+}
+
+function hideLoader() {
+  document.getElementById("btnVoltar").style.display = "block";
+  document.getElementById("loader").style.display = "none";
+}
+
+function hidePage() {
+  document.getElementById("rastreio").value = "";
+  document.getElementById("tipo-postal").innerHTML = "";
+  document.getElementById("ship").innerHTML = "";
+  document.getElementById("code-rastreio").innerHTML = "";
+  document.getElementById("btnVoltar").style.display = "none";
+  document.getElementById("loader").style.display = "none";
+  document.getElementById("form").style.display = "block";
+}
+</script>
+</body>
+</html>

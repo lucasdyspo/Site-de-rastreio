@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rastreamento</title>
+        <script src="script.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="rastreio-center">
+        <div id="content-rastreio">
+            <div id="tabs-rastreamento">
+                <div id="ver-rastro-unico" style="display: block;">
+                    <div>
+                        <h4 id="code-rastreio"></h4>
+                        <ul id="tipo-postal" class="cabecalho-rastro"></ul>
+                    </div>
+                    <ul id="ship" class="ship-steps"></ul>
+                </div>
+                <button onclick="hidePage()" id="btnVoltar" style="display:none;">Rastrear novo objeto</button>
+            </div>
+            <form id="form" onsubmit="OnSubmit(event)">
+                <div class="text text-title">
+                    Preencha o código de rastreio abaixo para conferir o status do pedido.
+                </div>
+                <div class="custom-search">
+                    <input id="rastreio" required oninput="this.value = this.value.toUpperCase()" class="custom-search-input" type="text" title="Insira o código de rastreio corretamente" placeholder="Digite o código de rastreio">
+                    <button id="btn-rastreio" class="custom-search-botton">Buscar</button>
+                </div>
+                <span id="error-rastreio" class="error-message"></span>
+            </form>
+        </div>
+        <div id="loader" class="loader" style="display: none;"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
