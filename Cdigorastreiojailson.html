@@ -1,58 +1,79 @@
-
-
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>rastreio Site</title>
+    <title>Site de Rastreio</title>
 
     <!-- Bootstrap CSS (opcional) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Ícone da Página -->
-    <link rel="icon" type="image/png" href="favicon.png">
-
 
     <!-- Meta Keywords (não muito relevante para SEO atual) -->
     <meta name="keywords" content="HTML, CSS, JavaScript, Exemplo">
-
     <!-- Meta Autor -->
     <meta name="author" content="Seu Nome">
 
     <!-- Estilos CSS personalizados -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="jailson.css">
 
     <!-- JavaScript (se necessário) -->
     <script defer src="script.js"></script>
 </head>
-<div id="rastreio-center">
-<div id="content-rastreio"></div>
-<div id="loader" class="loader" style="display: relative;"></div>
-</div>
-<script>
 
 
-//Predefinições
-const corBotao = "#ff6600";
-const corTextoBotao = "#fff";
-const fontSize = "0.8rem";
-const fontSizeContent = "0.75rem";
-const fontFamily = "Verdana, Geneva, Tahoma, sans-serif";
-const title = "Preencha o código de rastreio abaixo para conferir o status do pedido.";
+<body>
+    <div>
+
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid"></div>
 
 
-/*
-    a: EXIBIR INFORMAÇÕES INTERNACIONAIS
-    b: CONSULTAR O RASTREIO INTERNACIONAL
+        </nav>
+        <img class="nav-bar img-fundo">
 
-    OBS.: Por favor, remova esse comentário!
-*/
-const a = true;
-const b = false;
+        <!-- <span class="ad-exemplo">
+    1
+  </span> -->
 
-//Code HTML
-var html = `
+
+
+
+
+        <div>
+            <div>
+                <div id="title-teste">
+                    <img src="icons/logo.svg">
+                </div>
+
+            </div>
+
+            <div id="rastreio-center">
+                <div id="content-rastreio"></div>
+                <div id="loader" class="loader" style="display: relative;"></div>
+            </div>
+            <script>
+                //Predefinições
+                const corBotao = "#ff6600";
+                const corTextoBotao = "#fff";
+                const fontSize = "0.8rem";
+                const fontSizeContent = "0.75rem";
+                const fontFamily = "Verdana, Geneva, Tahoma, sans-serif";
+                const title = "Preencha o código de rastreio abaixo para conferir o status do pedido.";
+
+
+                /*
+                    a: EXIBIR INFORMAÇÕES INTERNACIONAIS
+                    b: CONSULTAR O RASTREIO INTERNACIONAL
+
+                    OBS.: Por favor, remova esse comentário!
+                */
+                const a = true;
+                const b = false;
+
+                //Code HTML
+                var html = `
 <div id="tabs-rastreamento">
   <div id="ver-rastro-unico" style="display: block;">
     <div>
@@ -73,10 +94,10 @@ var html = `
 </form>
 
 `;
-document.getElementById("content-rastreio").innerHTML = html;
+                document.getElementById("content-rastreio").innerHTML = html;
 
-//Code CSS
-var styles = `
+                //Code CSS
+                var styles = `
 #rastreio-center{
   text-align: -webkit-center;
   text-align: -moz-center;
@@ -97,8 +118,8 @@ var styles = `
   letter-spacing: 0.1pt;
 }
 #code-rastreio {
-    font-weight: bold;
-    text-align: left;
+  text-align: left;
+  font-weight: bold;  
     color: #00416b;
     padding-inline-start: 40px;
     line-height: 1.3;
@@ -200,7 +221,7 @@ var styles = `
 
 .custom-search {
   position: relative;
-  width: 300px;
+  width: 370px;
 }
 .custom-search-input {
   width: 100%;
@@ -268,152 +289,178 @@ button#btnVoltar {
 }
 `;
 
-var styleSheet = document.createElement("style");
-styleSheet.innerText = styles;
-document.head.appendChild(styleSheet);
+                var styleSheet = document.createElement("style");
+                styleSheet.innerText = styles;
+                document.head.appendChild(styleSheet);
 
-//Entrar na URL com o rastreio
-var url_string = window.location.href;
-var url = new URL(url_string);
-var codeRastreioUrl = url.searchParams.get("id");
-if (codeRastreioUrl != null) {
-  codeRastreioUrl = codeRastreioUrl.toUpperCase();
-  getRastreamento(codeRastreioUrl);
-}
-else {
-  codeRastreioUrl = "";
-}
+                //Entrar na URL com o rastreio
+                var url_string = window.location.href;
+                var url = new URL(url_string);
+                var codeRastreioUrl = url.searchParams.get("id");
+                if (codeRastreioUrl != null) {
+                    codeRastreioUrl = codeRastreioUrl.toUpperCase();
+                    getRastreamento(codeRastreioUrl);
+                } else {
+                    codeRastreioUrl = "";
+                }
 
-function hidePage() {
-  document.getElementById("rastreio").value = "";
-  document.getElementById("tipo-postal").innerHTML = "";
-  document.getElementById("ship").innerHTML = "";
-  document.getElementById("code-rastreio").innerHTML = "";
-  document.getElementById("btnVoltar").style.display = "none";
-  document.getElementById("loader").style.display = "none";
-  document.getElementById("form").style.display = "block";
-}
+                function hidePage() {
+                    document.getElementById("rastreio").value = "";
+                    document.getElementById("tipo-postal").innerHTML = "";
+                    document.getElementById("ship").innerHTML = "";
+                    document.getElementById("code-rastreio").innerHTML = "";
+                    document.getElementById("btnVoltar").style.display = "none";
+                    document.getElementById("loader").style.display = "none";
+                    document.getElementById("form").style.display = "block";
+                }
 
-function buildCabecalho(categoria, dtPrevista) {
-  var html = "";
-  html += `            <div class="arrow-dashed">`;
-  html += `              <div class="circle">`;
-  if(categoria == "Xpress"){
-    html += `                <img class="circle-img" src="https://cdn-icons-png.flaticon.com/512/726/726455.png" width="35px" height="35px" />`;
-  }else{
-    html += `                <img class="circle-img" src="https://rastreamento.correios.com.br/static/rastreamento-internet/imgs/correios-sf.png" width="35px" height="35px" />`;
-  }
-  html += `              </div>`;
-  html += `            </div>`;
-  html += `            <div class="cabecalho-content">`;
-  html += `              <p class="text text-content">${categoria}</p>`;
-  html += `                <p class="text text-content">Data prevista: ${dtPrevista}</p>`;
-  html += `            </div>`;
-  return html;
-}
+                function buildCabecalho(categoria, dtPrevista) {
+                    var html = "";
+                    html += `            <div class="arrow-dashed">`;
+                    html += `              <div class="circle">`;
+                    if (categoria == "Xpress") {
+                        html += `                <img class="circle-img" src="https://cdn-icons-png.flaticon.com/512/726/726455.png" width="35px" height="35px" />`;
+                    } else {
+                        html += `                <img class="circle-img" src="https://rastreamento.correios.com.br/static/rastreamento-internet/imgs/correios-sf.png" width="35px" height="35px" />`;
+                    }
+                    html += `              </div>`;
+                    html += `            </div>`;
+                    html += `            <div class="cabecalho-content">`;
+                    html += `              <p class="text fs-5 ">${categoria}</p>`;
+                    html += `                <p class="text fs-5 ">Data prevista: ${dtPrevista}</p>`;
+                    html += `            </div>`;
+                    return html;
+                }
 
-function buildItem(seta, img, status, local) {
-    var html = "";
-    html += `<li class="step">`;
-    html += `              <div class="${seta}">`;
-    html += `                <div class="circle">`;
-    html += `                  <img class="circle-img" src="https://rastreamento.correios.com.br/static/rastreamento-internet/imgs/${img}">`;
-    html += `                </div>`;
-    html += `              </div>`;
-    html += `              <div class="step-content">`;
-    html += `                <p class="text text-head">${status}</p>`;
-    html += `                <p class="text text-content">${local}</p>`;
-    html += `              </div>`;
-    html += `</li>`;
-    return html;
-  }
+                function buildItem(data, hora, local, status, substatus) {
+                    var html = "";
+                    html += `<li class="step">`;
+                    // html += `              <div class="${seta}">`;
+                    // html += `                <div class="circle">`;
+                    // html += `                  <img class="circle-img" src="https://rastreamento.correios.com.br/static/rastreamento-internet/imgs/${img}">`;
+                    html += `                </div>`;
+                    html += `              </div>`;
+                    html += `          <div> `;
+                    html += `            <p>${hora}</p> `;
+                    html += `<p class="hora-desc">${data}</p> `
+                    html += `            </div> `
+                    html += `              <div class="step-content">`;
+                    html += `                <p class="text text-head">${status}</p>`;
+                    html += `                <p class="fs-6">${local}</p>`;
+                    html += `                <p class="fs-6">${substatus}</p>`;
 
-// função para tratar o sucesso
-function success() {
-  try {
-    var dataJSON = JSON.parse(this.responseText)
-    var pr = this.responseText
-    console.log(pr)
-    console.log(dataJSON)
+                    html += `              </div>`;
+                    html += `</li>`;
+                    return html;
+                }
 
-    if (!dataJSON.hasOwnProperty("mensagem")) {
-      hideLoader();
-      document.getElementById("rastreio").value = "";
-      document.getElementById("code-rastreio").innerHTML = dataJSON.codigo;
-      document.getElementById("tipo-postal").innerHTML = buildCabecalho(dataJSON.host, dataJSON.quantidade);
-      dataJSON.eventos.forEach(function (item, index) {
-        document.getElementById("ship").innerHTML += buildItem(
-          item.data,
-          item.hora,
-          item.subStatus,
-          item.status,
+                // função para tratar o sucesso
+                function success() {
+                    try {
+                        var dataJSON = JSON.parse(this.responseText)
+                        var pr = this.responseText
+                        console.log(pr)
+                        console.log(dataJSON)
 
-        );
-      });
-    } else {
-      document.getElementById("error-rastreio").innerHTML = dataJSON.mensagem;
-      hidePage();
-    }
-  } catch (err) {
-    error(err);
-  }
-}
+                        if (!dataJSON.hasOwnProperty("mensagem")) {
+                            hideLoader();
+                            document.getElementById("rastreio").value = "";
+                            document.getElementById("code-rastreio").innerHTML = dataJSON.codigo;
+                            document.getElementById("tipo-postal").innerHTML = buildCabecalho(dataJSON.servico, dataJSON.quantidade);
+                            dataJSON.eventos.forEach(function(item, index) {
+                                document.getElementById("ship").innerHTML += buildItem(
+                                    item.data,
+                                    item.hora,
+                                    item.local,
+                                    item.subStatus,
+                                    item.status,
 
-// função para tratar o erro
-function error(err) {
-  hidePage();
-  document.getElementById("error-rastreio").innerHTML = "Erro de solicitação, tente novamente!";
-  console.log("Erro de solicitação", err); //os detalhes do erro estarão no objeto "err"
-}
+                                );
+                            });
+                        } else {
+                            document.getElementById("error-rastreio").innerHTML = dataJSON.mensagem;
+                            hidePage();
+                        }
+                    } catch (err) {
+                        error(err);
+                    }
+                }
 
-function OnSubmit() {
-  event.preventDefault();
+                // função para tratar o erro
+                function error(err) {
+                    hidePage();
+                    document.getElementById("error-rastreio").innerHTML = "Erro de solicitação, tente novamente!";
+                    console.log("Erro de solicitação", err); //os detalhes do erro estarão no objeto "err"
+                }
 
-  document.getElementById("tipo-postal").innerHTML = "";
-  document.getElementById("ship").innerHTML = "";
-  document.getElementById("code-rastreio").innerHTML = "";
-  const codRastreio = document.querySelector("#rastreio").value;
-  getRastreamento(codRastreio);
-}
+                function OnSubmit() {
+                    event.preventDefault();
 
-function getRastreamento(codRastreio) {
-    if (validate(codRastreio)) {
-      document.getElementById("error-rastreio").innerHTML = "";
-      try {
-        showLoader();
-        var xhr = new XMLHttpRequest(); //invocar uma nova instância de XMLHttpRequest
-        xhr.onload = success; // chamar a função success se a solicitação for um sucesso
-        xhr.onerror = error; // chamar a função error se a solicitação der errado
-        xhr.open("GET", `https://api.linketrack.com/track/json?user=teste&token=1abcd00b2731640e886fb41a8a9671ad1434c599dbaa0a0de9a5aa619f29a83f&codigo=DA396268253BR`); // abrir uma solicitação
-        console.log(xhr);
-        xhr.send(); // enviar a solicitação ao servidor.
+                    document.getElementById("tipo-postal").innerHTML = "";
+                    document.getElementById("ship").innerHTML = "";
+                    document.getElementById("code-rastreio").innerHTML = "";
+                    const codRastreio = document.querySelector("#rastreio").value;
+                    getRastreamento(codRastreio);
+                }
 
-      } catch (err) {
-        console.error(`Error: ${err.value}`);
-      }
-    } else {
-      document.getElementById("rastreio").value = "";
-      document.getElementById("error-rastreio").innerHTML =
-        "Digite o código de rastreio corretamente!";
-    }
-  }
-  
-  function validate(codRastreio) {
-    var codRastreioRGEX = /^[A-Za-z]{2}[0-9]{9}[A-Za-z]{2}$|^[A-Za-z]{2}[0-9]{14}$|^BR/;
-    return codRastreioRGEX.test(codRastreio);
-  }
+                function getRastreamento(codRastreio) {
+                    if (validate(codRastreio)) {
+                        document.getElementById("error-rastreio").innerHTML = "";
+                        try {
+                            showLoader();
+                            var xhr = new XMLHttpRequest(); //invocar uma nova instância de XMLHttpRequest
+                            xhr.onload = success; // chamar a função success se a solicitação for um sucesso
+                            xhr.onerror = error; // chamar a função error se a solicitação der errado
+                            xhr.open("GET", `https://api.linketrack.com/track/json?user=teste&token=1abcd00b2731640e886fb41a8a9671ad1434c599dbaa0a0de9a5aa619f29a83f&codigo=DA396268253BR`); // abrir uma solicitação
+                            console.log(xhr);
+                            console.log(xhr)
+                            let cod = Number(429)
 
-function showLoader() {
-  document.getElementById("error-rastreio").innerHTML ="";
-  document.getElementById("loader").style.display = "block";
-  document.getElementById("form").style.display = "none";
-}
+                            if (xhr.status == cod) {
+                                console.log(typeof(xhr.status))
+                            }
+                            xhr.send(); // enviar a solicitação ao servidor.
 
-function hideLoader() {
-  document.getElementById("btnVoltar").style.display = "block";
-  document.getElementById("loader").style.display = "none";
-}
+                            if (xhr.status == 200) {
+                                console.log(typeof(xhr.status))
+                            }
 
+                        } catch (err) {
+                            console.error(`Error: ${err.value}`);
+                            console.log(err);
+                        }
+                    } else {
+                        document.getElementById("rastreio").value = "";
+                        document.getElementById("error-rastreio").innerHTML =
+                            "Digite o código de rastreio corretamente!";
+                    }
+                }
 
-</script>
+                function validate(codRastreio) {
+                    var codRastreioRGEX = /^[A-Za-z]{2}[0-9]{9}[A-Za-z]{2}$|^[A-Za-z]{2}[0-9]{14}$|^BR/;
+                    return codRastreioRGEX.test(codRastreio);
+                }
+
+                function showLoader() {
+                    document.getElementById("error-rastreio").innerHTML = "";
+                    document.getElementById("loader").style.display = "block";
+                    document.getElementById("form").style.display = "none";
+                }
+
+                function hideLoader() {
+                    document.getElementById("btnVoltar").style.display = "block";
+                    document.getElementById("loader").style.display = "none";
+                }
+            </script>
+        </div>
+    </div>
+    <div>
+        <h2>
+            Rastreie sua encomenda com precisão e tranquilidade
+        </h2>
+        <h6> Receba atualizações instantâneas sobre o status da sua encomenda e a previsão de entrega.</h6>
+    </div>
+    </div>
+</body>
+
 </html>
