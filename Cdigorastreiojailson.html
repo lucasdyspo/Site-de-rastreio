@@ -5,33 +5,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Site de Rastreio</title>
+    <link rel="icon" href="icons/logo.svg">
 
     <!-- Bootstrap CSS (opcional) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-
-    <!-- Meta Keywords (não muito relevante para SEO atual) -->
     <meta name="keywords" content="HTML, CSS, JavaScript, Exemplo">
-    <!-- Meta Autor -->
-    <meta name="author" content="Seu Nome">
-
-    <!-- Estilos CSS personalizados -->
+    <meta name="author" content="Lucas Dyspo">
     <link rel="stylesheet" href="jailson.css">
-
-    <!-- JavaScript (se necessário) -->
     <script defer src="script.js"></script>
 </head>
 
 
-<body>
+<body style="
+    background-color: #c3c3c363;">
     <div>
 
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid"></div>
+
+        <nav class="navbar navbar-expand-lg bg-body-tertiary my-header">
+
+            <img src="icons/logo.svg" style="width: 110px;">
 
 
-        </nav>
-        <img class="nav-bar img-fundo">
+            <div style="display: flex;">
+                <button>login</button>
+                <span></span>
+                <h6>about us</h6>
+            </div>
+    </div>
+
+
+    </nav>
+
+    <div class="nav-bar img-fundo">
 
         <!-- <span class="ad-exemplo">
     1
@@ -41,7 +46,10 @@
 
 
 
-        <div>
+        <div style="
+            align-items: center;
+            align-content: center;
+            justify-items: center;">
             <div>
                 <div id="title-teste">
                     <img src="icons/logo.svg">
@@ -51,7 +59,7 @@
 
             <div id="rastreio-center">
                 <div id="content-rastreio"></div>
-                <div id="loader" class="loader" style="display: relative;"></div>
+                <div id="loader" class="loader" style="display: none;"></div>
             </div>
             <script>
                 //Predefinições
@@ -129,16 +137,11 @@
   display: flex;
   padding-bottom: 0px;
 }
-.step-content {
-  margin-left: 30px;
-  padding-bottom: 20px;
+.step-content { 
 }
 .text-head {
-  font-size: ${fontSize};
-  font-weight: bold;
   color: #00416b;
-  font-family: ${fontFamily};
-  letter-spacing: -0.4pt;
+ letter-spacing: -0.4pt;
   word-spacing: 0.8pt;
   line-height: 1.4;
   padding-bottom: 0.1rem;
@@ -305,6 +308,7 @@ button#btnVoltar {
                 }
 
                 function hidePage() {
+                    document.getElementById("title-teste").style.display = "block";
                     document.getElementById("rastreio").value = "";
                     document.getElementById("tipo-postal").innerHTML = "";
                     document.getElementById("ship").innerHTML = "";
@@ -326,8 +330,8 @@ button#btnVoltar {
                     html += `              </div>`;
                     html += `            </div>`;
                     html += `            <div class="cabecalho-content">`;
-                    html += `              <p class="text fs-5 ">${categoria}</p>`;
-                    html += `                <p class="text fs-5 ">Data prevista: ${dtPrevista}</p>`;
+                    html += `              <p class="">${categoria}</p>`;
+                    html += `                <p class="">Data prevista: ${dtPrevista}</p>`;
                     html += `            </div>`;
                     return html;
                 }
@@ -338,16 +342,15 @@ button#btnVoltar {
                     // html += `              <div class="${seta}">`;
                     // html += `                <div class="circle">`;
                     // html += `                  <img class="circle-img" src="https://rastreamento.correios.com.br/static/rastreamento-internet/imgs/${img}">`;
-                    html += `                </div>`;
-                    html += `              </div>`;
-                    html += `          <div> `;
+                    html += ` <div class="infos">`
                     html += `            <p>${hora}</p> `;
                     html += `<p class="hora-desc">${data}</p> `
-                    html += `            </div> `
+                    html += `              </div>`;
+                    html += `              <div>`;
                     html += `              <div class="step-content">`;
                     html += `                <p class="text text-head">${status}</p>`;
-                    html += `                <p class="fs-6">${local}</p>`;
-                    html += `                <p class="fs-6">${substatus}</p>`;
+                    html += `                <p class="local">${local}</p>`;
+                    html += `                <p class="text-head">${substatus}</p>`;
 
                     html += `              </div>`;
                     html += `</li>`;
@@ -364,6 +367,7 @@ button#btnVoltar {
 
                         if (!dataJSON.hasOwnProperty("mensagem")) {
                             hideLoader();
+                            document.getElementById("title-teste").style.display = "none"
                             document.getElementById("rastreio").value = "";
                             document.getElementById("code-rastreio").innerHTML = dataJSON.codigo;
                             document.getElementById("tipo-postal").innerHTML = buildCabecalho(dataJSON.servico, dataJSON.quantidade);
@@ -454,13 +458,103 @@ button#btnVoltar {
             </script>
         </div>
     </div>
+    </div>
+    <nav style="display: flex; justify-content: space-between;">
+        <div>
+            <div>
+                <img class="ads">
+            </div>
+            <div>
+                <img class="ads-v">
+            </div>
+        </div>
+
+        <section>
+            <div style="justify-self: center;margin-top: 4rem;">
+                <h4>
+                    Rastreie sua encomenda com precisão e tranquilidade
+                </h4>
+                <h6> Receba atualizações instantâneas sobre o status da sua encomenda e a previsão de entrega.</h6>
+            </div>
+
+
+            <div style="margin:5rem 10rem 10rem 9rem;">
+                <ul>
+                    <li class="article-home">
+                        <div>
+                            <img src="icons/package.svg" class="icon-home">
+                        </div>
+                        <div class="text-home">
+                            <h4>
+                                encomendas
+                            </h4>
+                            <p>
+                                Lorem ipsum dooluptatem nostrum, molestias nam simdicta eum sed explicabo amet incidunt earum?
+                            </p>
+                        </div>
+                    </li>
+
+
+                    <li class="article-home">
+                        <div>
+                            <img src="icons/house.svg" class="icon-home">
+                        </div>
+                        <div class="text-home">
+                            <h4>
+                                encomendas
+                            </h4>
+                            <p>
+                                Lorem ipsum dooluptatem nostrum, molestias nam simdicta eum sed explicabo amet incidunt earum?
+                            </p>
+                        </div>
+                    </li>
+
+
+
+
+                    <li class="article-home">
+                        <div>
+                            <img src="icons/truck 1.svg" class="icon-home">
+                        </div>
+                        <div class="text-home">
+                            <h4>
+                                encomendas
+                            </h4>
+                            <p>
+                                Lorem ipsum dooluptatem nostrum, molestias nam simdicta eum sed explicabo amet incidunt earum?
+                            </p>
+                        </div>
+                    </li>
+
+
+                </ul>
+
+
+            </div>
+        </section>
+        <div>
+            <div>
+                <img class="ads">
+            </div>
+            <div>
+                <img class="ads-v">
+
+            </div>
+        </div>
+    </nav>
+    </div>
     <div>
-        <h2>
-            Rastreie sua encomenda com precisão e tranquilidade
-        </h2>
-        <h6> Receba atualizações instantâneas sobre o status da sua encomenda e a previsão de entrega.</h6>
+        <img class="ads-h">
     </div>
-    </div>
+
+    <footer>
+        <ol style="list-style: none;">
+            <li>adsodsj@jsdsadlksal.com</li>
+            <li>
+                <a href="https://www.github.com/lucasdyspo" target="_blank">devlopment</a>
+            </li>
+        </ol>
+    </footer>
 </body>
 
 </html>
