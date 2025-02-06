@@ -373,10 +373,6 @@
     }
     
     .text.text-title {
-        font-family: $ {
-            fontFamily
-        }
-        ;
         font-size: 1.2rem;
         letter-spacing: -0.4pt;
         word-spacing: 0.8pt;
@@ -394,4 +390,26 @@
         margin-bottom: 30px;
         font-size: 1.2rem;
         margin-left: 40px;
+    }
+    
+    nav {
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    @media screen and (max-width: 550px) {
+        nav {
+            display: block;
+        }
+        .ads {
+            display: block;
+            position: static;
+        }
+        body {
+            display: grid;
+        }
+        .img-fundo {
+            min-height: 400px;
+            position: absolute;
+        }
     }
