@@ -33,17 +33,57 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#">Sobre</a>
                         </li>
-                        <li class="nav-item">
+                        <!--´´``<li class="nav-item">
                             <a class="nav-link" href="#">Serviços</a>
-                        </li>
+                        </li>``´´ -->
                         <li class="nav-item">
                             <a class="nav-link" href="#">Contato</a>
                         </li>
+                        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Outros sites
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="#">SITE 1</a>
+          <a class="dropdown-item" href="#">SITE 2</a>
+          <a class="dropdown-item" href="#">SITE 3</a>
+        </div>
+      </li>
+
                     </ul>
                 </div>
             </div>
         </nav>
 
+       <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Meu Site</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Início <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Sobre</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Serviços</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dropdown
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="#">Ação 1</a>
+          <a class="dropdown-item" href="#">Ação 2</a>
+          <a class="dropdown-item" href="#">Ação 3</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav> 
 
         <nav class="navbar navbar-expand-lg bg-body-tertiary my-header">
 
@@ -58,7 +98,7 @@
     </div>
 
 
-    </nav>
+      </nav> -->
 
     <div class="nav-bar img-fundo">
 
@@ -116,14 +156,15 @@
   </div>
   <button onclick="hidePage()" id="btnVoltar" style="display:none;">Rastrear novo objeto</button>
 </div>
-<form id="form" onsubmit="OnSubmit()">
-<div class="text text-title">${title}</div>
-  <div class="custom-search">
-    <input id="rastreio" required oninput="this.value = this.value.toUpperCase()" class="custom-search-input" type="text" title="Insira o código de rastreio corretamente" placeholder="Digite o c&oacute;digo de rastreio" />
+<form id="form form-inline" onsubmit="OnSubmit()">
+<div class="text text-title"> <strong> ${title} </strong></div>
+  <div class="custom-search input-group">
+    <input id="rastreio" required oninput="this.value = this.value.toUpperCase()" class="custom-search-input form-control form-control-sm" type="text" title="Insira o código de rastreio corretamente" placeholder="Digite o c&oacute;digo de rastreio" />
     <button id="btn-rastreio" class="custom-search-botton">Buscar</button>
   </div>
   <span id="error-rastreio" style="color: red;margin:8px 0 15px; display: block; font-weight: bold;"></span>
 </form>
+
 
 `;
                 document.getElementById("content-rastreio").innerHTML = html;
@@ -290,15 +331,6 @@
 
 #tabs-rastreamento {
     margin: 30px 40px 0px 0px;
-}
-
-.text.text-title {
-    font-family: ${fontFamily};
-    font-size: 1.2rem;
-    letter-spacing: -0.4pt;
-    word-spacing: 0.8pt;
-    line-height: 1.4;
-    margin-bottom: 15px;
 }
 
 button#btnVoltar {
@@ -506,7 +538,7 @@ button#btnVoltar {
         </div>
     </div>
     </div>
-    <nav>
+    <nav class="down">
         <div>
             <div>
                 <img class="ads">

@@ -13,6 +13,7 @@
         margin-top: 6rem;
         color: #ffc40c;
         font-family: cursive;
+        text-align: center;
     }
     
     .page {
@@ -233,6 +234,9 @@
         list-style: none;
         margin-bottom: 6rem;
     }
+    .down{
+        
+    }
     
     .circle {
         background-color: #ddd;
@@ -370,6 +374,7 @@
     
     #tabs-rastreamento {
         margin: 30px 40px 0px 0px;
+        padding-top: 3rem
     }
     
     .text.text-title {
@@ -378,7 +383,12 @@
         word-spacing: 0.8pt;
         line-height: 1.4;
         margin-bottom: 15px;
-    }
+        color: #101c20;
+  text-shadow: azure;
+  text-shadow: 2px 1px 3px rgba(242, 114, 0, 0.34);
+  margin-bottom: 1.5rem;
+}
+    
     
     button#btnVoltar {
         border: 0;
@@ -398,7 +408,7 @@
     }
     
     @media screen and (max-width: 550px) {
-        nav {
+        .down {
             display: block;
         }
         .ads {
@@ -409,7 +419,19 @@
             display: grid;
         }
         .img-fundo {
-            min-height: 400px;
+            max-height: 500px;
             position: absolute;
         }
+
+
+        .title-text {
+            padding-top: 20px;
+            padding-top: 10px;
+        }
+
+
+
+        #tabs-rastreamento {
+  margin: 30px 40px 0px 0px;
+  padding-top: 1rem;
     }
